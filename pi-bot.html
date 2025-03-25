@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Pi Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: 50px auto; }
+        input, button { display: block; width: 80%; margin: 10px auto; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Your Bot Here</h1>
+        <p>Enter your details below:</p>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let message = New contact submission: Name - ${name}, Email - ${email};
+            alert(message); // Replace this with an email notification system later
+            document.getElementById('message').innerText = "Submitted successfully!";
+        });
+    </script>
+</body>
+</html>
