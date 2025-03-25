@@ -4,21 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bot Security</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        /* Header Section */
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        /* Image */
+        .bot-image {
+            width: 150px;
+            height: auto;
+            margin: 20px 0;
+        }
+        /* Buttons */
+        .bot-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .bot-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .bot-button:hover {
+            background-color: #0056b3;
+        }
+        /* Footer */
+        .ratings {
+            margin-top: 20px;
+            color: gold;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Secure Your Funds with Automated Protection</h1>
-        <img src="bot-image.png" alt="AI Security Bot" class="bot-image">
-        <p>Our bot ensures the security of your digital assets.</p>
-        
-        <div class="buttons">
-            <a href="pi-bot.html" class="btn">Pi Bot</a>
-            <a href="#" class="btn">Bitcoin Bot</a>
-            <a href="#" class="btn">Ethereum Bot</a>
-        </div>
-
-        <div class="ratings">⭐⭐⭐⭐⭐</div>
+    <h1>Secure Your Funds with Automated Protection</h1>
+    <img class="bot-image" src="bot_image.png" alt="Bot Image">
+    <p>Our bot ensures the security of your digital assets.</p>
+    
+    <div class="bot-options">
+        <button class="bot-button" onclick="location.href='pi_bot.html'">Pi Bot</button>
+        <button class="bot-button">Bitcoin Bot</button>
+        <button class="bot-button">Ethereum Bot</button>
     </div>
+
+    <div class="ratings">⭐⭐⭐⭐⭐</div>
 </body>
 </html>
