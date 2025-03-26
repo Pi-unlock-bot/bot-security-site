@@ -1,0 +1,26 @@
+name: Save Form Submission
+
+on:
+  repository_dispatch:
+    types: [form_submission]
+
+jobs:
+  save_submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Append form data to file
+        run: |
+          echo "${{ github.event.client_payload.data }}" >> submissions.txt
+          git add submissions.txt
+          git commit -m "New form submission"
+          git push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
